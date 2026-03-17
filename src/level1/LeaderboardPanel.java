@@ -12,7 +12,7 @@ import java.util.List;
  * and uses LeaderboardAlgorithms (student TODOs) for sorting/search.
  */
 public class LeaderboardPanel extends JPanel {
-    private static final int WIDTH = 900;
+    private static final int WIDTH = 1200;
     private static final int HEIGHT = 540;
 
     private final AppRouter router;
@@ -37,6 +37,7 @@ public class LeaderboardPanel extends JPanel {
         JButton sortNameBtn = new JButton("Sort by Username");
         JButton searchBtn = new JButton("Search (Binary)");
         JButton backBtn = new JButton("Back to Menu");
+        JButton searchScoreBtn = new JButton("Search Score");
 
         top.add(loadBtn);
         top.add(top20Btn);
@@ -45,6 +46,7 @@ public class LeaderboardPanel extends JPanel {
         top.add(searchField);
         top.add(searchBtn);
         top.add(backBtn);
+        top.add(searchScoreBtn);
 
         add(top, BorderLayout.NORTH);
 
@@ -101,6 +103,34 @@ public class LeaderboardPanel extends JPanel {
                 status("Not found: " + target + " (binary search returned -1)");
             }
         });
+        
+        searchScoreBtn.addActionListener(e -> {
+        	
+        if (allEntries.isEmpty()) { status("Load first."); return; }
+        	
+       
+       	 ArrayList<ScoreEntry> copy = new ArrayList<>(allEntries);
+       	  int key = Integer.parseInt(searchField.getText().trim());
+      
+       	 
+       	  LeaderboardAlgorithms.sortByScoreDescending(copy);
+       	  
+          
+           ArrayList<ScoreEntry> idx = LeaderboardAlgorithms.binarySearchScore(copy, key);
+
+           if (idx != null) {
+        	   
+        		tableModel.setData(idx);
+               status("Found user: " + key + " (binary search index " + idx + ")");
+           } else {
+               tableModel.setData(List.of());
+               status("Not found: " + key + " (binary search returned -1)");
+           }
+        	
+        	
+        });
+        
+      
 
         backBtn.addActionListener(e -> router.goToMenu());
     }
@@ -126,4 +156,7 @@ public class LeaderboardPanel extends JPanel {
     private void status(String msg) {
         statusLabel.setText(msg);
     }
+    
 }
+    
+

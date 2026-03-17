@@ -57,4 +57,9 @@ The Jframe objects are created and the approuter object are created in main.
 
 3.It would make sense to implement the sorting of scores in the LeaderboardAlgorithms class
 
+
+Note: I saw there was a comment mentioning extra credit if I wrote a quicksort, the algorithm to sort the scores is a quicksort, but the algorithm to sort the usernames is Binary
+
+Binary search
+
  
