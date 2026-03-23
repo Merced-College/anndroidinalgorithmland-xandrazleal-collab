@@ -1,3 +1,9 @@
+//Chase Batchelor
+//Xandra Leal
+//Matthew Briones
+//3/20/2026
+//CPSC-39-12106
+
 package level1;
 
 import javax.swing.*;
@@ -104,6 +110,8 @@ public class LeaderboardPanel extends JPanel {
             }
         });
         
+        //Added Action listener for the new button for search Score
+        
         searchScoreBtn.addActionListener(e -> {
         	
         if (allEntries.isEmpty()) { status("Load first."); return; }
@@ -112,12 +120,14 @@ public class LeaderboardPanel extends JPanel {
        	 ArrayList<ScoreEntry> copy = new ArrayList<>(allEntries);
        	  int key = Integer.parseInt(searchField.getText().trim());
       
-       	 
+       	 //sorts so search works
        	  LeaderboardAlgorithms.sortByScoreDescending(copy);
        	  
-          
+          //creates ArrayList idx that has all the searched scores, and adds them to the table
            ArrayList<ScoreEntry> idx = LeaderboardAlgorithms.binarySearchScore(copy, key);
-
+           
+           
+           // if the list isn't empty, it sets the table to the data list, else returns error message
            if (idx != null) {
         	   
         		tableModel.setData(idx);
